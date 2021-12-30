@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "movie")
@@ -23,5 +25,35 @@ public class MovieEntity {
     private LocalDate createdDate;
 
     private int rating;
+
+    // Has Many Genres:
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(
+            name = "movie_genres",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<GenreEntity> genres = new ArrayList<>();
+
+    // Has Many Characters:
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(
+            name = "movie_characters",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "character_id")
+    )
+    private List<CharacterEntity> characters = new ArrayList<>();
 
 }
