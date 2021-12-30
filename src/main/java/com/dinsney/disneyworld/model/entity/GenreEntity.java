@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "genre")
@@ -19,4 +21,11 @@ public class GenreEntity {
 
     private String image;
 
+    // Has Many Movies:
+    @ManyToMany(
+            mappedBy = "genres",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<MovieEntity> movies = new ArrayList<>();
 }
