@@ -27,7 +27,6 @@ public class MovieEntity {
     private int rating;
 
     // Has Many Genres:
-
     @ManyToMany(
             cascade = {
                     CascadeType.PERSIST,
@@ -41,5 +40,20 @@ public class MovieEntity {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<GenreEntity> genres = new ArrayList<>();
+
+    // Has Many Characters:
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(
+            name = "movie_characters",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "character_id")
+    )
+    private List<CharacterEntity> characters = new ArrayList<>();
 
 }
