@@ -19,7 +19,6 @@ public class UserMapper {
         return RegisterResponse.builder()
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .jwt("JWT")
                 .build();
     }
 

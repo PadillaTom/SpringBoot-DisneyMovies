@@ -6,11 +6,15 @@ import com.dinsney.disneyworld.model.request.RegisterRequest;
 import com.dinsney.disneyworld.model.response.RegisterResponse;
 import com.dinsney.disneyworld.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +25,17 @@ public class UserDetailsCustomService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        var foundUser = userRepository.findByUsername(username).orElseThrow();
+        System.out.println(foundUser);
+
+        return new User(
+                foundUser.getUsername(), // Usuario
+                foundUser.getPassword(), // Password
+                Collections.emptyList()  // Roles (ADMIN, USUARIO, etc)
+        );
+
     }
 
     public RegisterResponse createNewUser(RegisterRequest registerRequest){
