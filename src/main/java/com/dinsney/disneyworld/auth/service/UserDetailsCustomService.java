@@ -28,14 +28,11 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var foundUser = userRepository.findByUsername(username).orElseThrow();
-        System.out.println(foundUser);
-
         return new User(
                 foundUser.getUsername(), // Usuario
                 foundUser.getPassword(), // Password
                 Collections.emptyList()  // Roles (ADMIN, USUARIO, etc)
         );
-
     }
 
     public RegisterResponse createNewUser(RegisterRequest registerRequest){

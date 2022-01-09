@@ -27,7 +27,6 @@ public class UserAuthenticationController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public AuthenticationResponse loginDeUsuario(@RequestBody AuthenticationRequest authenticationRequest){
-        System.out.println(authenticationRequest);
         return userAuthService.login(authenticationRequest);
     }
 

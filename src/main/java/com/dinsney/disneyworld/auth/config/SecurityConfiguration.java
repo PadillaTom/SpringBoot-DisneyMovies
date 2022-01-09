@@ -1,6 +1,7 @@
 package com.dinsney.disneyworld.auth.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers("/auth/register").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .anyRequest().authenticated()
 
                 .and().exceptionHandling()

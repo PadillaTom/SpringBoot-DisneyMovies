@@ -20,9 +20,7 @@ public class UserAuthService {
     private final AuthenticationMapper authenticationMapper;
 
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest){
-        System.out.println("AUTH REQUEST --> " + authenticationRequest);
         UserDetails userDetails = userDetailsCustomService.loadUserByUsername(authenticationRequest.getUsername());
-
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 authenticationRequest.getUsername(),
                 authenticationRequest.getPassword(),
