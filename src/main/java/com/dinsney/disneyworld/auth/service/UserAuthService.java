@@ -18,6 +18,7 @@ public class UserAuthService {
     private final UserDetailsCustomService userDetailsCustomService;
     private final AuthenticationManager authenticationManager;
     private final AuthenticationMapper authenticationMapper;
+    private final JwtUtil jwtUtil;
 
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest){
         UserDetails userDetails = userDetailsCustomService.loadUserByUsername(authenticationRequest.getUsername());
@@ -29,8 +30,8 @@ public class UserAuthService {
         authenticationManager.authenticate(authenticationToken);
 
         // TODO: Si es correcto: Armamos una Nueva JWT. (Armada con los datos de mi usuario en la memoria de Spring)
-
-        return authenticationMapper.toDTO(userDetails, "Esta es mi JWT - Reemplazarme por una JWT REAL");
+        String jwt = jwtUtil.generateToken(userDetails);
+        return authenticationMapper.toDTO(userDetails, jwt);
     }
 
 }

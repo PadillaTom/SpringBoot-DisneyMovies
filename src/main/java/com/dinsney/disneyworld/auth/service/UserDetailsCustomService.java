@@ -6,6 +6,7 @@ import com.dinsney.disneyworld.model.request.RegisterRequest;
 import com.dinsney.disneyworld.model.response.RegisterResponse;
 import com.dinsney.disneyworld.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ import java.util.Collections;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsCustomService implements UserDetailsService {
+
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
